@@ -1,0 +1,220 @@
+---
+title: 'Question #2'
+author: ""
+date: ""
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+```
+
+$$\\[.01in]$$
+
+# *Calculate measures of centrality and similarity in networks depending on the type of tie? Which tie type generates the most similar network in terms of introversion? Which tie type is the most dissimilar?*
+
+
+$$\\[.01in]$$
+
+
+
+#### ***Tie Types***
+  + **Tie Type 1** = I have texted in the last 7 days
+  + **Tie Type 2** = I have met during my time in MBDS
+  + **Tie Type 3** = Is my friend
+  + **Tie Type 4** = I ask for advice/help
+  + **Tie Type 5** = Asks me for help/advice
+
+
+$$\\[.01in]$$
+
+
+
+```{r, include=FALSE}
+## Set-up
+library(tidyverse)
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+library(sna)
+library(readxl)
+library(network)
+library(splitstackshape)
+library(igraph)
+setwd("~/Desktop/BDS516")
+edge_list <- read_csv("edge_list.csv")
+edge_list <- edge_list %>% select(-X1)
+node_list <- read_csv("node_list.csv")
+node_list <- node_list %>% select(-X1)
+```
+
+
+### **Calculating Measures**
+
+```{r}
+node_clean <- node_list
+node_clean[is.na(node_clean)] <- -1
+```
+
+
+###### Calculating measures of centrality and similarity in networks for **Tie Type 1**
+
+```{r, message=FALSE, warning=FALSE}
+edge1 <- edge_list %>% filter(Tie_Type == 1)
+net1 <- graph_from_data_frame(d = edge1, vertices = node_clean, directed = TRUE)
+
+deg1 <- degree(net1, mode="all") ## Degree
+avg_deg1 <- mean(deg1)
+
+close1 <- closeness(net1, mode="all", weights=NA) ## Closeness
+avg_close1 <- mean(close1)
+
+between1 <- betweenness(net1, directed=T, weights=NA) ## Betweenness
+avg_between1 <- mean(between1)
+
+## Similarity (according to introversion)
+net1_clean <- graph_from_data_frame(d = edge1, vertices = node_clean, directed = TRUE)
+sim1 <- assortativity(net1_clean, V(net1_clean)$introversion, directed=T)
+```
+
+
+
+
+###### Calculating measures of centrality and similarity in networks for **Tie Type 2**
+
+```{r, message=FALSE, warning=FALSE}
+edge2 <- edge_list %>% filter(Tie_Type == 2)
+net2 <- graph_from_data_frame(d = edge2, vertices = node_clean, directed = TRUE)
+
+deg2 <- degree(net2, mode="all") ## Degree
+avg_deg2 <- mean(deg2)
+
+close2 <- closeness(net2, mode="all", weights=NA) ## Closeness
+avg_close2 <- mean(close2)
+
+between2 <- betweenness(net2, directed=T, weights=NA) ## Betweenness
+avg_between2 <- mean(between2)
+
+## Similarity (according to introversion)
+net2_clean <- graph_from_data_frame(d = edge2, vertices = node_clean, directed = TRUE)
+sim2 <- assortativity(net2_clean, V(net2_clean)$introversion, directed=T)
+```
+
+
+
+
+###### Calculating measures of centrality and similarity in networks for **Tie Type 3**
+
+```{r, message=FALSE, warning=FALSE}
+edge3 <- edge_list %>% filter(Tie_Type == 3)
+net3 <- graph_from_data_frame(d = edge3, vertices = node_clean, directed = TRUE)
+
+deg3 <- degree(net3, mode="all") ## Degree
+avg_deg3 <- mean(deg3)
+
+close3 <- closeness(net3, mode="all", weights=NA) ## Closeness
+avg_close3 <- mean(close3)
+
+between3 <- betweenness(net3, directed=T, weights=NA) ## Betweenness
+avg_between3 <- mean(between3)
+
+## Similarity (according to introversion)
+net3_clean <- graph_from_data_frame(d = edge3, vertices = node_clean, directed = TRUE)
+sim3 <- assortativity(net3_clean, V(net3_clean)$introversion, directed=T)
+```
+
+
+
+###### Calculating measures of centrality and similarity in networks for **Tie Type 4**
+
+```{r, message=FALSE, warning=FALSE}
+edge4 <- edge_list %>% filter(Tie_Type == 4)
+net4 <- graph_from_data_frame(d = edge4, vertices = node_clean, directed = TRUE)
+
+deg4 <- degree(net4, mode="all") ## Degree
+avg_deg4 <- mean(deg4)
+
+
+close4 <- closeness(net4, mode="all", weights=NA) ## Closeness
+avg_close4 <- mean(close4)
+
+
+between4 <- betweenness(net4, directed=T, weights=NA) ## Betweenness
+avg_between4 <- mean(between4)
+
+## Similarity (according to introversion)
+net4_clean <- graph_from_data_frame(d = edge4, vertices = node_clean, directed = TRUE)
+sim4 <- assortativity(net4_clean, V(net4_clean)$introversion, directed=T)
+```
+
+
+
+
+###### Calculating measures of centrality and similarity in networks for **Tie Type 5**
+
+```{r, message=FALSE, warning=FALSE}
+edge5 <- edge_list %>% filter(Tie_Type == 5)
+net5 <- graph_from_data_frame(d = edge5, vertices = node_clean, directed = TRUE)
+
+deg5 <- degree(net5, mode="all") ## Degree
+avg_deg5 <- mean(deg5)
+
+close5 <- closeness(net5, mode="all", weights=NA) ## Closeness
+avg_close5 <- mean(close5)
+
+between5 <- betweenness(net5, directed=T, weights=NA) ## Betweenness
+avg_between5 <- mean(between5)
+
+## Similarity (according to introversion)
+net5_clean <- graph_from_data_frame(d = edge5, vertices = node_clean, directed = TRUE)
+sim5 <- assortativity(net5_clean, V(net5_clean)$introversion, directed=T)
+```
+
+```{r, include=FALSE}
+library(kableExtra)
+```
+
+$$\\[.01in]$$
+
+
+### **Measures of Centrality in Networks by Tie Type**
+```{r, message=FALSE}
+## Table showing measures of centrality by tie type
+centrality_table <- data.frame(Tie_Type = c("Type 1", "Type 2", "Type 3", "Type 4", "Type 5"),
+                               Average_Degree = c(avg_deg1, avg_deg2, avg_deg3, avg_deg4, avg_deg5),
+                               Average_Closeness = c(avg_close1, avg_close2, avg_close3, avg_close4, avg_close5),
+                               Average_Between = c(avg_between1, avg_between2, avg_between3, avg_between4, avg_between5))
+
+colnames(centrality_table)[1] <- "Tie Type" 
+colnames(centrality_table)[2] <- "Degree (avg.)" 
+colnames(centrality_table)[3] <- "Closeness (avg.)" 
+colnames(centrality_table)[4] <- "Betweenness (avg.)"
+
+centrality_table %>% kbl() %>% kable_styling()
+```
+
+
+
+
+
+
+
+$$\\[.01in]$$
+
+
+### **Similarity in Networks (in terms of *introversion*) by Tie Type**
+```{r, message=FALSE}
+similarity_table <- data.frame(Tie_Type = c("Type 1", "Type 2", "Type 3", "Type 4", "Type 5"),
+                               Similarity = c(sim1, sim2, sim3, sim4, sim5))
+
+colnames(similarity_table)[1] <- "Tie Type"
+
+similarity_table %>% kbl() %>% kable_styling()
+```
+
+#### As shown above, **Tie Type 1** (i.e. having texted a person in the last 7 days) generates the *most* similar network in terms of introversion, while **Tie Type 3** (i.e. friendship) generates the *least* similar networks in terms of introversion.
+
+
+

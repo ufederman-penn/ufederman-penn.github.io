@@ -1,0 +1,123 @@
+---
+title: 'Question #1'
+author: ""
+date: ""
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+```
+
+$$\\[.01in]$$
+
+# *Prepare the data for the network analysis (create a separate edge and node list)*
+
+
+$$\\[.01in]$$
+
+```{r, include=FALSE}
+#Packages and data
+library(tidyverse)
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+library(sna)
+library(readxl)
+library(network)
+library(splitstackshape)
+setwd("~/Desktop/BDS516")
+hw10 <- read_excel("hw10.xlsx")
+```
+
+
+### **Edge List**
+```{r, comment=NA}
+### Creating Edge List
+network <- hw10
+network <- network[-1,]
+
+# Renaming columns
+colnames(network)[1] <- "Out_Tie" 
+colnames(network)[42] <- "introversion" 
+
+## Pivot_longer so that out_ties are contained in cells (and not displayed as variables)
+network2 <- network %>% 
+  pivot_longer(cols = starts_with("Q3"),
+               names_to = "In_Tie",
+               values_to = "relationships")
+
+network2$In_Tie <- gsub("Q3_", "", network2$In_Tie)
+
+network2 <- network2 %>% 
+  na.omit() %>% select(Out_Tie, In_Tie, relationships, introversion)
+
+## Seplitting cells containing comma-separated tie type via for loop
+edge_list <- network2
+
+cols <- "relationships"
+
+for (i in cols) {
+  edge_list <- cSplit(edge_list, i, ",", "long")
+  }
+  
+colnames(edge_list)[3] <- "Tie_Type" 
+
+# Selecting columns that pertain to the network 
+edge_list <- edge_list %>% select(-introversion)
+edge_list[] <- lapply(edge_list, function(x) as.numeric(as.character(x)))
+
+dim(edge_list)
+head(edge_list, n = 20)
+```
+
+
+$$\\[.01in]$$
+
+
+
+### **Node List**
+
+```{r, comment=NA, message=FALSE}
+### Creating Node List
+id_df <- data.frame(id = 1:40)
+
+nodes<- network %>% 
+  select(Out_Tie, introversion) %>% 
+  na.omit()
+
+colnames(nodes)[1] <- "id" 
+nodes[] <- lapply(nodes, function(x) as.numeric(as.character(x)))
+node_list <- full_join(nodes, id_df)
+
+dim(node_list) 
+head(node_list, n = 20)
+```
+
+
+
+
+```{r, eval=FALSE, include=FALSE, echo=FALSE}
+## Saving as csv files for ease
+setwd("~/Desktop/BDS516")
+edge_list <- as.data.frame(edge_list)
+write.csv(x=edge_list, file="edge_list.csv")
+node_list <- as.data.frame(node_list)
+write.csv(x=node_list, file="node_list.csv")
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+

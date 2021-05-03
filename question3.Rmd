@@ -1,0 +1,80 @@
+---
+title: 'Question #3'
+author: ""
+date: ""
+output: html_document
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::knit_hooks$set(crop = knitr::hook_pdfcrop)
+```
+
+$$\\[.01in]$$
+
+# *Do introverts tend to be at the periphery while extraverts are in the center of the network? Motivate.*
+
+
+$$\\[.01in]$$
+
+
+```{r, include=FALSE}
+## Set-up
+library(tidyverse)
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+library(sna)
+library(readxl)
+library(network)
+library(splitstackshape)
+library(igraph)
+setwd("~/Desktop/BDS516")
+edge_list <- read_csv("edge_list.csv")
+edge_list <- edge_list %>% select(-X1)
+node_list <- read_csv("node_list.csv")
+node_list <- node_list %>% select(-X1)
+```
+
+```{r, results='hold', fig.align='center', fig.height=6, fig.width=7.5}
+node_list2 <- node_list
+node_list2$introversion[node_list2$introversion== 1] <- "Introvert"  
+node_list2$introversion[node_list2$introversion== 2] <- "Ambivert"  
+node_list2$introversion[node_list2$introversion== 3] <- "Extrovert"  
+
+introvert_network <- graph_from_data_frame(d=edge_list, vertices=node_list2, directed=F)
+
+#Plotting network
+V(introvert_network)$color <- ifelse(V(introvert_network)$introversion == "Introvert", "lightblue",
+                              ifelse(V(introvert_network)$introversion == "Extrovert", "darkred",
+                              ifelse(V(introvert_network)$introversion == "Ambivert", "purple", "grey")))
+V(introvert_network)$label <- NA
+
+set.seed(04917)
+plot(introvert_network, vertex.size = 10, vertex.label.cex = .8, edge.color = "black", 
+     edge.curved = FALSE, layout=layout_with_drl, main = "Visualization of BDS 516 Social Network", font.main = 3.5)
+
+set.seed(04917)
+legend("bottomright", c("Introvert","Extrovert", "Ambivert", "NA"), pt.bg=c("lightblue","darkred","purple", "white"),
+       pch=21, col="#777777", pt.cex=1.75, cex=.8, adj = c(0, 0.6))
+```
+
+
+### sophie is writing it up
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

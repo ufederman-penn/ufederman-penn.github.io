@@ -1,3 +1,16 @@
----
-title: uri 516
----
+name: "Uri Federman's Website for Homework #10"
+output_dir: "."
+navbar:
+  title: "Uri Federman"
+  left:
+    - text: "Question #1"
+      href: question1.html
+    - text: "Question #2"
+      href: question2.html
+    - text: "Question #3"
+      href: question3.html
+
+output:
+  html_document:
+    theme: simplex
+    highlight: textmate

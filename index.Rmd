@@ -1,0 +1,32 @@
+---
+title: "About"
+author: ""
+date: "5/1/2021"
+output: html_document
+---
+
+
+$$\\[.01in]$$
+
+#### This is a website created for BDS 516 Homework #10. 
+
+
+$$\\[.01in]$$
+
+
+
+#### ***Set-up***
+```{r, message=FALSE, warning=FALSE}
+#Packages and data
+library(tidyverse)
+library(lubridate)
+library(dplyr)
+library(ggplot2)
+library(sna)
+library(readxl)
+library(network)
+library(splitstackshape)
+setwd("~/Desktop/BDS516")
+hw10 <- read_excel("hw10.xlsx")
+```
+

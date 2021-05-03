@@ -12,7 +12,7 @@
 <meta name="author" content="" />
 
 
-<title>About</title>
+<title>Question #3</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -262,30 +262,39 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">About</h1>
-<h4 class="date">5/1/2021</h4>
+<h1 class="title toc-ignore">Question #3</h1>
 
 </div>
 
 
 <p><span class="math display">\[\\[.01in]\]</span></p>
-<div id="this-is-a-website-created-for-bds-516-homework-10." class="section level4">
-<h4>This is a website created for BDS 516 Homework #10.</h4>
+<div id="do-introverts-tend-to-be-at-the-periphery-while-extraverts-are-in-the-center-of-the-network-motivate." class="section level1">
+<h1><em>Do introverts tend to be at the periphery while extraverts are in the center of the network? Motivate.</em></h1>
 <p><span class="math display">\[\\[.01in]\]</span></p>
+<pre class="r"><code>node_list2 &lt;- node_list
+node_list2$introversion[node_list2$introversion== 1] &lt;- &quot;Introvert&quot;  
+node_list2$introversion[node_list2$introversion== 2] &lt;- &quot;Ambivert&quot;  
+node_list2$introversion[node_list2$introversion== 3] &lt;- &quot;Extrovert&quot;  
+
+introvert_network &lt;- graph_from_data_frame(d=edge_list, vertices=node_list2, directed=F)
+
+#Plotting network
+V(introvert_network)$color &lt;- ifelse(V(introvert_network)$introversion == &quot;Introvert&quot;, &quot;lightblue&quot;,
+                              ifelse(V(introvert_network)$introversion == &quot;Extrovert&quot;, &quot;darkred&quot;,
+                              ifelse(V(introvert_network)$introversion == &quot;Ambivert&quot;, &quot;purple&quot;, &quot;grey&quot;)))
+V(introvert_network)$label &lt;- NA
+
+set.seed(04917)
+plot(introvert_network, vertex.size = 10, vertex.label.cex = .8, edge.color = &quot;black&quot;, 
+     edge.curved = FALSE, layout=layout_with_drl, main = &quot;Visualization of BDS 516 Social Network&quot;, font.main = 3.5)
+
+set.seed(04917)
+legend(&quot;bottomright&quot;, c(&quot;Introvert&quot;,&quot;Extrovert&quot;, &quot;Ambivert&quot;, &quot;NA&quot;), pt.bg=c(&quot;lightblue&quot;,&quot;darkred&quot;,&quot;purple&quot;, &quot;white&quot;),
+       pch=21, col=&quot;#777777&quot;, pt.cex=1.75, cex=.8, adj = c(0, 0.6))</code></pre>
+<p><img src="question3_files/figure-html/unnamed-chunk-2-1.png" width="720" style="display: block; margin: auto;" /></p>
+<div id="sophie-is-writing-it-up" class="section level3">
+<h3>sophie is writing it up</h3>
 </div>
-<div id="set-up" class="section level4">
-<h4><strong><em>Set-up</em></strong></h4>
-<pre class="r"><code>#Packages and data
-library(tidyverse)
-library(lubridate)
-library(dplyr)
-library(ggplot2)
-library(sna)
-library(readxl)
-library(network)
-library(splitstackshape)
-setwd(&quot;~/Desktop/BDS516&quot;)
-hw10 &lt;- read_excel(&quot;hw10.xlsx&quot;)</code></pre>
 </div>
 
 

@@ -12,7 +12,7 @@
 <meta name="author" content="" />
 
 
-<title>About</title>
+<title>Question #1</title>
 
 <script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
 <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -262,30 +262,117 @@ $(document).ready(function () {
 
 
 
-<h1 class="title toc-ignore">About</h1>
-<h4 class="date">5/1/2021</h4>
+<h1 class="title toc-ignore">Question #1</h1>
 
 </div>
 
 
 <p><span class="math display">\[\\[.01in]\]</span></p>
-<div id="this-is-a-website-created-for-bds-516-homework-10." class="section level4">
-<h4>This is a website created for BDS 516 Homework #10.</h4>
+<div id="prepare-the-data-for-the-network-analysis-create-a-separate-edge-and-node-list" class="section level1">
+<h1><em>Prepare the data for the network analysis (create a separate edge and node list)</em></h1>
+<p><span class="math display">\[\\[.01in]\]</span></p>
+<div id="edge-list" class="section level3">
+<h3><strong>Edge List</strong></h3>
+<pre class="r"><code>### Creating Edge List
+network &lt;- hw10
+network &lt;- network[-1,]
+
+# Renaming columns
+colnames(network)[1] &lt;- &quot;Out_Tie&quot; 
+colnames(network)[42] &lt;- &quot;introversion&quot; 
+
+## Pivot_longer so that out_ties are contained in cells (and not displayed as variables)
+network2 &lt;- network %&gt;% 
+  pivot_longer(cols = starts_with(&quot;Q3&quot;),
+               names_to = &quot;In_Tie&quot;,
+               values_to = &quot;relationships&quot;)
+
+network2$In_Tie &lt;- gsub(&quot;Q3_&quot;, &quot;&quot;, network2$In_Tie)
+
+network2 &lt;- network2 %&gt;% 
+  na.omit() %&gt;% select(Out_Tie, In_Tie, relationships, introversion)
+
+## Seplitting cells containing comma-separated tie type via for loop
+edge_list &lt;- network2
+
+cols &lt;- &quot;relationships&quot;
+
+for (i in cols) {
+  edge_list &lt;- cSplit(edge_list, i, &quot;,&quot;, &quot;long&quot;)
+  }
+  
+colnames(edge_list)[3] &lt;- &quot;Tie_Type&quot; 
+
+# Selecting columns that pertain to the network 
+edge_list &lt;- edge_list %&gt;% select(-introversion)
+edge_list[] &lt;- lapply(edge_list, function(x) as.numeric(as.character(x)))
+
+dim(edge_list)</code></pre>
+<pre><code>[1] 713   3</code></pre>
+<pre class="r"><code>head(edge_list, n = 20)</code></pre>
+<pre><code>    Out_Tie In_Tie Tie_Type
+ 1:      30      8        4
+ 2:      30     10        4
+ 3:      30     11        1
+ 4:      30     18        1
+ 5:      30     18        2
+ 6:      30     18        3
+ 7:      30     18        4
+ 8:      30     18        5
+ 9:      30     20        1
+10:      30     20        3
+11:      30     20        4
+12:      30     20        5
+13:      30     21        4
+14:      30     29        4
+15:      30     34        1
+16:      30     34        2
+17:      30     34        3
+18:      30     34        4
+19:      30     34        5
+20:      30     36        1</code></pre>
 <p><span class="math display">\[\\[.01in]\]</span></p>
 </div>
-<div id="set-up" class="section level4">
-<h4><strong><em>Set-up</em></strong></h4>
-<pre class="r"><code>#Packages and data
-library(tidyverse)
-library(lubridate)
-library(dplyr)
-library(ggplot2)
-library(sna)
-library(readxl)
-library(network)
-library(splitstackshape)
-setwd(&quot;~/Desktop/BDS516&quot;)
-hw10 &lt;- read_excel(&quot;hw10.xlsx&quot;)</code></pre>
+<div id="node-list" class="section level3">
+<h3><strong>Node List</strong></h3>
+<pre class="r"><code>### Creating Node List
+id_df &lt;- data.frame(id = 1:40)
+
+nodes&lt;- network %&gt;% 
+  select(Out_Tie, introversion) %&gt;% 
+  na.omit()
+
+colnames(nodes)[1] &lt;- &quot;id&quot; 
+nodes[] &lt;- lapply(nodes, function(x) as.numeric(as.character(x)))
+node_list &lt;- full_join(nodes, id_df)
+
+dim(node_list) </code></pre>
+<pre><code>[1] 40  2</code></pre>
+<pre class="r"><code>head(node_list, n = 20)</code></pre>
+<pre><code># A tibble: 20 x 2
+      id introversion
+   &lt;dbl&gt;        &lt;dbl&gt;
+ 1    30            2
+ 2    17            2
+ 3    40            2
+ 4     5            2
+ 5    33            2
+ 6    23            2
+ 7    28            2
+ 8    32            2
+ 9    15            2
+10     2            3
+11     1            2
+12    35            3
+13    20            2
+14    18            1
+15    24            2
+16    36            2
+17     7            1
+18    31            3
+19    34            1
+20    38            2</code></pre>
+</div>
 </div>
 
 

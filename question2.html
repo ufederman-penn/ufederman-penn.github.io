@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+<meta name="author" content="" />
+
+
+<title>Question #2</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/simplex.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<script src="site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="site_libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Uri Federman</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="question1.html">Question #1</a>
+</li>
+<li>
+  <a href="question2.html">Question #2</a>
+</li>
+<li>
+  <a href="question3.html">Question #3</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Question #2</h1>
+
+</div>
+
+
+<p><span class="math display">\[\\[.01in]\]</span></p>
+<div id="calculate-measures-of-centrality-and-similarity-in-networks-depending-on-the-type-of-tie-which-tie-type-generates-the-most-similar-network-in-terms-of-introversion-which-tie-type-is-the-most-dissimilar" class="section level1">
+<h1><em>Calculate measures of centrality and similarity in networks depending on the type of tie? Which tie type generates the most similar network in terms of introversion? Which tie type is the most dissimilar?</em></h1>
+<p><span class="math display">\[\\[.01in]\]</span></p>
+<div id="tie-types" class="section level4">
+<h4><strong><em>Tie Types</em></strong></h4>
+<ul>
+<li><strong>Tie Type 1</strong> = I have texted in the last 7 days</li>
+<li><strong>Tie Type 2</strong> = I have met during my time in MBDS</li>
+<li><strong>Tie Type 3</strong> = Is my friend</li>
+<li><strong>Tie Type 4</strong> = I ask for advice/help</li>
+<li><strong>Tie Type 5</strong> = Asks me for help/advice</li>
+</ul>
+<p><span class="math display">\[\\[.01in]\]</span></p>
+</div>
+<div id="calculating-measures" class="section level3">
+<h3><strong>Calculating Measures</strong></h3>
+<pre class="r"><code>node_clean &lt;- node_list
+node_clean[is.na(node_clean)] &lt;- -1</code></pre>
+<div id="calculating-measures-of-centrality-and-similarity-in-networks-for-tie-type-1" class="section level6">
+<h6>Calculating measures of centrality and similarity in networks for <strong>Tie Type 1</strong></h6>
+<pre class="r"><code>edge1 &lt;- edge_list %&gt;% filter(Tie_Type == 1)
+net1 &lt;- graph_from_data_frame(d = edge1, vertices = node_clean, directed = TRUE)
+
+deg1 &lt;- degree(net1, mode=&quot;all&quot;) ## Degree
+avg_deg1 &lt;- mean(deg1)
+
+close1 &lt;- closeness(net1, mode=&quot;all&quot;, weights=NA) ## Closeness
+avg_close1 &lt;- mean(close1)
+
+between1 &lt;- betweenness(net1, directed=T, weights=NA) ## Betweenness
+avg_between1 &lt;- mean(between1)
+
+## Similarity (according to introversion)
+net1_clean &lt;- graph_from_data_frame(d = edge1, vertices = node_clean, directed = TRUE)
+sim1 &lt;- assortativity(net1_clean, V(net1_clean)$introversion, directed=T)</code></pre>
+</div>
+<div id="calculating-measures-of-centrality-and-similarity-in-networks-for-tie-type-2" class="section level6">
+<h6>Calculating measures of centrality and similarity in networks for <strong>Tie Type 2</strong></h6>
+<pre class="r"><code>edge2 &lt;- edge_list %&gt;% filter(Tie_Type == 2)
+net2 &lt;- graph_from_data_frame(d = edge2, vertices = node_clean, directed = TRUE)
+
+deg2 &lt;- degree(net2, mode=&quot;all&quot;) ## Degree
+avg_deg2 &lt;- mean(deg2)
+
+close2 &lt;- closeness(net2, mode=&quot;all&quot;, weights=NA) ## Closeness
+avg_close2 &lt;- mean(close2)
+
+between2 &lt;- betweenness(net2, directed=T, weights=NA) ## Betweenness
+avg_between2 &lt;- mean(between2)
+
+## Similarity (according to introversion)
+net2_clean &lt;- graph_from_data_frame(d = edge2, vertices = node_clean, directed = TRUE)
+sim2 &lt;- assortativity(net2_clean, V(net2_clean)$introversion, directed=T)</code></pre>
+</div>
+<div id="calculating-measures-of-centrality-and-similarity-in-networks-for-tie-type-3" class="section level6">
+<h6>Calculating measures of centrality and similarity in networks for <strong>Tie Type 3</strong></h6>
+<pre class="r"><code>edge3 &lt;- edge_list %&gt;% filter(Tie_Type == 3)
+net3 &lt;- graph_from_data_frame(d = edge3, vertices = node_clean, directed = TRUE)
+
+deg3 &lt;- degree(net3, mode=&quot;all&quot;) ## Degree
+avg_deg3 &lt;- mean(deg3)
+
+close3 &lt;- closeness(net3, mode=&quot;all&quot;, weights=NA) ## Closeness
+avg_close3 &lt;- mean(close3)
+
+between3 &lt;- betweenness(net3, directed=T, weights=NA) ## Betweenness
+avg_between3 &lt;- mean(between3)
+
+## Similarity (according to introversion)
+net3_clean &lt;- graph_from_data_frame(d = edge3, vertices = node_clean, directed = TRUE)
+sim3 &lt;- assortativity(net3_clean, V(net3_clean)$introversion, directed=T)</code></pre>
+</div>
+<div id="calculating-measures-of-centrality-and-similarity-in-networks-for-tie-type-4" class="section level6">
+<h6>Calculating measures of centrality and similarity in networks for <strong>Tie Type 4</strong></h6>
+<pre class="r"><code>edge4 &lt;- edge_list %&gt;% filter(Tie_Type == 4)
+net4 &lt;- graph_from_data_frame(d = edge4, vertices = node_clean, directed = TRUE)
+
+deg4 &lt;- degree(net4, mode=&quot;all&quot;) ## Degree
+avg_deg4 &lt;- mean(deg4)
+
+
+close4 &lt;- closeness(net4, mode=&quot;all&quot;, weights=NA) ## Closeness
+avg_close4 &lt;- mean(close4)
+
+
+between4 &lt;- betweenness(net4, directed=T, weights=NA) ## Betweenness
+avg_between4 &lt;- mean(between4)
+
+## Similarity (according to introversion)
+net4_clean &lt;- graph_from_data_frame(d = edge4, vertices = node_clean, directed = TRUE)
+sim4 &lt;- assortativity(net4_clean, V(net4_clean)$introversion, directed=T)</code></pre>
+</div>
+<div id="calculating-measures-of-centrality-and-similarity-in-networks-for-tie-type-5" class="section level6">
+<h6>Calculating measures of centrality and similarity in networks for <strong>Tie Type 5</strong></h6>
+<pre class="r"><code>edge5 &lt;- edge_list %&gt;% filter(Tie_Type == 5)
+net5 &lt;- graph_from_data_frame(d = edge5, vertices = node_clean, directed = TRUE)
+
+deg5 &lt;- degree(net5, mode=&quot;all&quot;) ## Degree
+avg_deg5 &lt;- mean(deg5)
+
+close5 &lt;- closeness(net5, mode=&quot;all&quot;, weights=NA) ## Closeness
+avg_close5 &lt;- mean(close5)
+
+between5 &lt;- betweenness(net5, directed=T, weights=NA) ## Betweenness
+avg_between5 &lt;- mean(between5)
+
+## Similarity (according to introversion)
+net5_clean &lt;- graph_from_data_frame(d = edge5, vertices = node_clean, directed = TRUE)
+sim5 &lt;- assortativity(net5_clean, V(net5_clean)$introversion, directed=T)</code></pre>
+<p><span class="math display">\[\\[.01in]\]</span></p>
+</div>
+</div>
+<div id="measures-of-centrality-in-networks-by-tie-type" class="section level3">
+<h3><strong>Measures of Centrality in Networks by Tie Type</strong></h3>
+<pre class="r"><code>## Table showing measures of centrality by tie type
+centrality_table &lt;- data.frame(Tie_Type = c(&quot;Type 1&quot;, &quot;Type 2&quot;, &quot;Type 3&quot;, &quot;Type 4&quot;, &quot;Type 5&quot;),
+                               Average_Degree = c(avg_deg1, avg_deg2, avg_deg3, avg_deg4, avg_deg5),
+                               Average_Closeness = c(avg_close1, avg_close2, avg_close3, avg_close4, avg_close5),
+                               Average_Between = c(avg_between1, avg_between2, avg_between3, avg_between4, avg_between5))
+
+colnames(centrality_table)[1] &lt;- &quot;Tie Type&quot; 
+colnames(centrality_table)[2] &lt;- &quot;Degree (avg.)&quot; 
+colnames(centrality_table)[3] &lt;- &quot;Closeness (avg.)&quot; 
+colnames(centrality_table)[4] &lt;- &quot;Betweenness (avg.)&quot;
+
+centrality_table %&gt;% kbl() %&gt;% kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Tie Type
+</th>
+<th style="text-align:right;">
+Degree (avg.)
+</th>
+<th style="text-align:right;">
+Closeness (avg.)
+</th>
+<th style="text-align:right;">
+Betweenness (avg.)
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Type 1
+</td>
+<td style="text-align:right;">
+7.40
+</td>
+<td style="text-align:right;">
+0.0037903
+</td>
+<td style="text-align:right;">
+17.850
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type 2
+</td>
+<td style="text-align:right;">
+6.85
+</td>
+<td style="text-align:right;">
+0.0046342
+</td>
+<td style="text-align:right;">
+13.950
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type 3
+</td>
+<td style="text-align:right;">
+6.75
+</td>
+<td style="text-align:right;">
+0.0016340
+</td>
+<td style="text-align:right;">
+11.900
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type 4
+</td>
+<td style="text-align:right;">
+8.95
+</td>
+<td style="text-align:right;">
+0.0039567
+</td>
+<td style="text-align:right;">
+18.050
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type 5
+</td>
+<td style="text-align:right;">
+5.70
+</td>
+<td style="text-align:right;">
+0.0024513
+</td>
+<td style="text-align:right;">
+15.275
+</td>
+</tr>
+</tbody>
+</table>
+<p><span class="math display">\[\\[.01in]\]</span></p>
+</div>
+<div id="similarity-in-networks-in-terms-of-introversion-by-tie-type" class="section level3">
+<h3><strong>Similarity in Networks (in terms of <em>introversion</em>) by Tie Type</strong></h3>
+<pre class="r"><code>similarity_table &lt;- data.frame(Tie_Type = c(&quot;Type 1&quot;, &quot;Type 2&quot;, &quot;Type 3&quot;, &quot;Type 4&quot;, &quot;Type 5&quot;),
+                               Similarity = c(sim1, sim2, sim3, sim4, sim5))
+
+colnames(similarity_table)[1] &lt;- &quot;Tie Type&quot;
+
+similarity_table %&gt;% kbl() %&gt;% kable_styling()</code></pre>
+<table class="table" style="margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+Tie Type
+</th>
+<th style="text-align:right;">
+Similarity
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+Type 1
+</td>
+<td style="text-align:right;">
+0.1348994
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type 2
+</td>
+<td style="text-align:right;">
+-0.0183015
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type 3
+</td>
+<td style="text-align:right;">
+-0.0288664
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type 4
+</td>
+<td style="text-align:right;">
+0.0173122
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Type 5
+</td>
+<td style="text-align:right;">
+0.0606320
+</td>
+</tr>
+</tbody>
+</table>
+<div id="as-shown-above-tie-type-1-i.e.having-texted-a-person-in-the-last-7-days-generates-the-most-similar-network-in-terms-of-introversion-while-tie-type-3-i.e.friendship-generates-the-least-similar-networks-in-terms-of-introversion." class="section level4">
+<h4>As shown above, <strong>Tie Type 1</strong> (i.e. having texted a person in the last 7 days) generates the <em>most</em> similar network in terms of introversion, while <strong>Tie Type 3</strong> (i.e. friendship) generates the <em>least</em> similar networks in terms of introversion.</h4>
+</div>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
