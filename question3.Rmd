@@ -61,7 +61,7 @@ legend("bottomright", c("Introvert","Extrovert", "Ambivert", "NA"), pt.bg=c("lig
 ```
 
 
-### uri is doing something
+##### In order to determine if extroverts are in the middle of the network and introverts are at the periphery, the ambiverts and NA are irrelevant datapoints. Therefore, this leaves three data points for extroverts and three data points for introverts. Given these six data points, it does seem to be the case that extroverts are at the center of the network and introverts are at the periphery.
 
 
 
